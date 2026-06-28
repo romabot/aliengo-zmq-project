@@ -19,8 +19,8 @@ import time
 
 def test_walking_performance():
     # Paths to scripts (assumed to be in the same directory)
-    controller_script = "controller.py"
-    simulation_script = "simulation.py"
+    controller_script = "src/controllers/robust_controller_zmq.py"
+    simulation_script = "src/simulation/aliengo_sim_zmq.py"
 
     # Start controller with a duration slightly longer than simulation time
     # to ensure it stays alive throughout the simulation.
