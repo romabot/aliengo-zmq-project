@@ -8,6 +8,7 @@ from pathlib import Path
 import mujoco
 import numpy as np
 import zmq
+import sys
 
 from src.common.constants import (
     BASE_START_Z,
@@ -263,6 +264,7 @@ def run(args):
             "duration": sim.data.time - sim.start_time
         }
         print(json.dumps(metrics))
+        sys.stdout.flush()
 
 
 def parse_args():
