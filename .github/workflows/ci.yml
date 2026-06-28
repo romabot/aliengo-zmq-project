@@ -23,14 +23,14 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y \
-            libgl1-mesa-dri \
+            libgl1 \
             libegl1 \
             libasound2t64 \
+            libxtst6 \
             libxrandr2 \
             libxinerama1 \
             libxcursor1 \
-            libxi6 \
-            libxtst62
+            libxi6
 
       - name: Install Python packages
         run: |
