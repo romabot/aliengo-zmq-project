@@ -8,7 +8,6 @@ from pathlib import Path
 import mujoco
 import numpy as np
 import zmq
-import sys
 
 from src.common.constants import (
     BASE_START_Z,
@@ -200,24 +199,18 @@ def run(args):
     pitches = []
     speeds = []
 
-
     def step(viewer=None):
         nonlocal seq
         sim.enforce_2d_state()
         sock_state.send(sim.state_packet(seq), zmq.NOBLOCK)
-        got_cmd = False
-        
+
         while True:
             try:
                 msg = sock_cmd.recv(zmq.NOBLOCK)
                 sim.last_cmd = unpack_command(msg)
                 sim.last_cmd_time = time.monotonic()
-                got_cmd = True
             except zmq.Again:
                 break
-        if not got_cmd and sim.data.time - sim.start_time > 2.0:
-            print(f"t={sim.data.time:.1f}: no command received yet")
-
 
         sim.apply_command(sim.command_for_step())
         mujoco.mj_step(sim.model, sim.data)
@@ -270,7 +263,6 @@ def run(args):
             "duration": sim.data.time - sim.start_time
         }
         print(json.dumps(metrics))
-        sys.stdout.flush()
 
 
 def parse_args():

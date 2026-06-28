@@ -163,22 +163,12 @@ def run(args):
                 print(f"Controller finished after {args.duration} s")
             break
 
-        #try:
-           # msg = sock_state.recv(zmq.NOBLOCK)
-         #
-         #    state = unpack_state(msg)
-        #except zmq.Again:
-            # Небольшая пауза, чтобы не гонять цикл вхолостую
-            #time.sleep(0.0001)
-            #continue
-        
-
         try:
             msg = sock_state.recv(zmq.NOBLOCK)
             state = unpack_state(msg)
-            if state["seq"] % 100 == 0:
-                print(f"Got state seq={state['seq']}, t={state['t']:.2f}")
         except zmq.Again:
+            # Небольшая пауза, чтобы не гонять цикл вхолостую
+            time.sleep(0.0001)
             continue
 
         torques, roll_torque, pitch_torque = controller.compute(state)
@@ -200,7 +190,7 @@ def parse_args():
     parser.add_argument("--state-endpoint", default=STATE_ENDPOINT)
     parser.add_argument("--cmd-endpoint", default=CMD_ENDPOINT)
     parser.add_argument("--verbose", action="store_true")
-    #parser.add_argument("--quiet", action="store_true", help="Suppress status messages")
+    parser.add_argument("--quiet", action="store_true", help="Suppress status messages")
     parser.add_argument("--duration", type=float, default=None,
                         help="Run controller for a fixed number of seconds then exit")
     return parser.parse_args()
