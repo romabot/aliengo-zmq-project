@@ -7,6 +7,9 @@ MuJoCo simulator  -- state bytes -->  ZeroMQ  -->  Robust controller
 MuJoCo simulator  <-- command bytes -- ZeroMQ  <--  Robust controller
 ```
 
+<img width="2560" height="1440" alt="Desktop-2026 06 28-19 49 47 07-_online-video-cutter com_-_2_" src="https://github.com/user-attachments/assets/f87b890a-f5ae-4044-97cc-723e21dde523" />
+
+
 ## Что реализовано
 
 - MuJoCo-сцена с Aliengo из `robot.xml`.
