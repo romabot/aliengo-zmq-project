@@ -39,10 +39,10 @@ def test_walking_performance():
 
     print(f"Starting simulation ({simulation_script}) for {simulation_duration}s...")
     sim_proc = subprocess.run(
-        [sys.executable, str(project_root / simulation_script),
-         "--duration", str(simulation_duration),
-         "--no-viewer",
-         "--output-metrics"],
+        ["xvfb-run", "--auto-servernum", sys.executable, str(project_root / simulation_script),
+        "--duration", str(simulation_duration),
+        "--no-viewer",
+        "--output-metrics"],
         capture_output=True,
         text=True,
         timeout=600,
@@ -53,6 +53,10 @@ def test_walking_performance():
     if sim_proc.returncode != 0:
         print("Simulation stderr:\n", sim_proc.stderr)
         raise AssertionError(f"Simulation exited with code {sim_proc.returncode}")
+
+    print("Simulation stdout:", repr(sim_proc.stdout))   # отладка
+    print("Simulation stderr:", repr(sim_proc.stderr))
+    metrics = json.loads(sim_proc.stdout.strip())
 
     metrics = json.loads(sim_proc.stdout.strip())
     max_roll = metrics["max_roll"]

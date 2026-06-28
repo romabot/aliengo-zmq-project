@@ -30,7 +30,8 @@ jobs:
             libxrandr2 \
             libxinerama1 \
             libxcursor1 \
-            libxi6
+            libxi6 \
+            xvfb
 
       - name: Install Python packages
         run: |
