@@ -41,4 +41,4 @@ jobs:
         run: python -c "import mujoco; print(mujoco.__version__)"
 
       - name: Run integration test
-        run: python test_integration.py
+        run: python tests/test_integration.py
