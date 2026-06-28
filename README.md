@@ -1,11 +1,5 @@
 # Aliengo MuJoCo + ZeroMQ PD controller
 
-Проект показывает внешний обмен между MuJoCo-симуляцией и ПД-контроллером робота Aliengo.
-
-```text
-MuJoCo simulator  -- state bytes -->  ZeroMQ  -->  Robust controller
-MuJoCo simulator  <-- command bytes -- ZeroMQ  <--  Robust controller
-```
 
 <img width="2560" height="1440" alt="Desktop-2026 06 28-19 49 47 07-_online-video-cutter com_-_2_" src="https://github.com/user-attachments/assets/f87b890a-f5ae-4044-97cc-723e21dde523" />
 
@@ -112,7 +106,12 @@ python -m src.tools.plot_logs --log logs/sim_log.csv
 python -m src.tools.plot_logs --log logs/sim_log.csv --output logs/gait_graphs.png
 ```
 
-## Где именно ZMQ
+## Как реализован ZMQ
+
+```text
+MuJoCo simulator  -- state bytes -->  ZeroMQ  -->  Robust controller
+MuJoCo simulator  <-- command bytes -- ZeroMQ  <--  Robust controller
+```
 
 В контроллере:
 
