@@ -56,9 +56,19 @@ def test_walking_performance():
 
     print("Simulation stdout:", repr(sim_proc.stdout))   # отладка
     print("Simulation stderr:", repr(sim_proc.stderr))
-    metrics = json.loads(sim_proc.stdout.strip())
+    lines = sim_proc.stdout.strip().splitlines()
+    json_line = None
+    for line in lines:
+        line = line.strip()
+        if line.startswith('{'):
+            json_line = line
+            break
 
-    metrics = json.loads(sim_proc.stdout.strip())
+    if json_line is None:
+        print("No JSON line found in simulation stdout:\n", sim_proc.stdout)
+        raise AssertionError("No JSON output from simulation")
+
+    metrics = json.loads(json_line)
     max_roll = metrics["max_roll"]
     max_pitch = metrics["max_pitch"]
     final_speed = metrics["final_speed"]
