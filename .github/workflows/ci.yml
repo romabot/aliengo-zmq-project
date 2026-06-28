@@ -38,7 +38,7 @@ jobs:
           pip install --upgrade pip
           pip install mujoco numpy pyzmq matplotlib
 
-      - name: Verify MuJoCo can be imported
+      - name: Verify MuJoCo
         run: python -c "import mujoco; print(mujoco.__version__)"
 
       - name: Run integration test
